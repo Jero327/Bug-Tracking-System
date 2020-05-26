@@ -1,3 +1,5 @@
+using Bug_Tracking_System.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,21 @@ namespace Bug_Tracking_System
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
+            services.AddDbContext<BugContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("BugContext")));
+
+            services.AddDbContext<UserContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("UserContext")));
+
+            services.AddDbContext<EnrollmentContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("EnrollmentContext")));
+
+            services.AddDbContext<ProjectContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("ProjectContext")));
+
+            services.AddDbContext<TestCaseContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("TestCaseContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
