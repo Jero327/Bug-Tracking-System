@@ -19,9 +19,9 @@
                 <span asp-validation-for="ProjectId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TesterId" class="control-label"></label>
-                <input asp-for="TesterId" class="form-control" />
-                <span asp-validation-for="TesterId" class="text-danger"></span>
+                <label asp-for="CaseTesterId" class="control-label"></label>
+                <select asp-for="CaseTesterId" class="form-control" asp-items="ViewBag.CaseTesterId"></select>
+                <span asp-validation-for="CaseTesterId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TestCaseName" class="control-label"></label>
@@ -35,12 +35,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
+                <select asp-for="Status" class="form-control">
+                    <option value="ToDo">ToDo</option>
+                    <option value="InProgress">InProgress</option>
+                    <option value="Done">Done</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Priority" class="control-label"></label>
-                <select asp-for="Priority" class="form-control"></select>
+                <select asp-for="Priority" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">

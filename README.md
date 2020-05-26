@@ -2,11 +2,13 @@
 
 "# 7413-Assessment" 
 
-Drop the database;
+dotnet tool install --global dotnet-ef
 
-delete Migrations files;
+dotnet ef database drop --force --context BugContext
 
-dotnet build;
+//delete Migrations files;
+
+dotnet build
 
 dotnet ef migrations add InitialCreate --context BugContext
 

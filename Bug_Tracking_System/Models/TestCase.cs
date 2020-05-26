@@ -15,7 +15,9 @@ namespace Bug_Tracking_System.Models
         public int Id { get; set; }
 
         public int ProjectId { get; set; }        
-        public int TesterId { get; set; }
+        public int CaseTesterId { get; set; }
+        
+        [Required]
         public string TestCaseName { get; set; }
         public string Comment { get; set; }
         public Status Status { get; set; }

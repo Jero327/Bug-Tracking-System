@@ -1,10 +1,10 @@
 @model IEnumerable<Bug_Tracking_System.Models.TestCase>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "TestCase";
 }
 
-<h1>Index</h1>
+<h1>Test Case</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,9 +12,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TesterId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.TestCaseName)
             </th>
@@ -42,15 +39,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Project)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseTester)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TesterId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TestCaseName)
             </td>
@@ -77,6 +74,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Project.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTester.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

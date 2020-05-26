@@ -14,8 +14,11 @@ namespace Bug_Tracking_System.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string UserName { get; set; }
         public int Phone { get; set; }
+        
+        [Required]
         public string Email { get; set; }
         public Role Role { get; set; }
 
@@ -28,7 +31,6 @@ namespace Bug_Tracking_System.Models
         [InverseProperty("Developer")]
         public ICollection<Bug> Developer { get; set; }
 
-        [InverseProperty("CaseTester")]
         public ICollection<TestCase> CaseTester { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }

@@ -9,6 +9,7 @@ namespace Bug_Tracking_System.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string ProjectName { get; set; }
 
         [Display(Name = "Cteate Time")]
