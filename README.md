@@ -13,3 +13,8 @@ dotnet build
 dotnet ef migrations add InitialCreate --context BugContext
 
 dotnet ef database update --context BugContext
+
+
+delete controller and views, then:
+
+dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries

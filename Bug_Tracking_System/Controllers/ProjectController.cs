@@ -54,7 +54,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectName,CteateTime,FinishTime")] Project project)
+        public async Task<IActionResult> Create([Bind("Id,ProjectName,Description,CteateTime,FinishTime")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectName,CteateTime,FinishTime")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectName,Description,CteateTime,FinishTime")] Project project)
         {
             if (id != project.Id)
             {

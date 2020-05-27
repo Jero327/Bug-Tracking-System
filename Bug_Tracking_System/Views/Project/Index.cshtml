@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.ProjectName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CteateTime)
             </th>
             <th>
@@ -29,6 +32,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CteateTime)
