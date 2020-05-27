@@ -88,19 +88,19 @@
                 @Html.DisplayFor(modelItem => item.CloseTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Project.Id)
+                @Html.DisplayFor(modelItem => item.Project.ProjectName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TestCase.Id)
+                @Html.DisplayFor(modelItem => item.TestCase.TestCaseName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tester.Id)
+                @Html.DisplayFor(modelItem => item.Tester.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TestManager.Id)
+                @Html.DisplayFor(modelItem => item.TestManager.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Developer.Id)
+                @Html.DisplayFor(modelItem => item.Developer.UserName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
