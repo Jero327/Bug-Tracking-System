@@ -43,6 +43,9 @@
                 @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SubProject)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TestCase)
             </th>
             <th>
@@ -89,6 +92,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Project.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubProject.SubProjectName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TestCase.TestCaseName)

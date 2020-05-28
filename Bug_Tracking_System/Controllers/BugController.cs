@@ -22,7 +22,7 @@ namespace Bug_Tracking_System.Controllers
         // GET: Bug
         public async Task<IActionResult> Index()
         {
-            var bugContext = _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester);
+            var bugContext = _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.SubProject).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester);
             return View(await bugContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace Bug_Tracking_System.Controllers
             var bug = await _context.Bug
                 .Include(b => b.Developer)
                 .Include(b => b.Project)
+                .Include(b => b.SubProject)
                 .Include(b => b.TestCase)
                 .Include(b => b.TestManager)
                 .Include(b => b.Tester)
@@ -52,11 +53,12 @@ namespace Bug_Tracking_System.Controllers
         // GET: Bug/Create
         public IActionResult Create()
         {
-            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "Id");
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id");
-            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "Id");
-            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "Id");
-            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "Id");
+            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName");
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName");
+            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "TestCaseName");
+            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
+            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
+        public async Task<IActionResult> Create([Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
         {
             if (ModelState.IsValid)
             {
@@ -73,11 +75,12 @@ namespace Bug_Tracking_System.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", bug.ProjectId);
-            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "Id", bug.TestCaseId);
-            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TestManagerId);
-            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TesterId);
+            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.DeveloperId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", bug.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", bug.SubProjectId);
+            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "TestCaseName", bug.TestCaseId);
+            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TestManagerId);
+            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TesterId);
             return View(bug);
         }
 
@@ -94,11 +97,12 @@ namespace Bug_Tracking_System.Controllers
             {
                 return NotFound();
             }
-            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", bug.ProjectId);
-            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "Id", bug.TestCaseId);
-            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TestManagerId);
-            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TesterId);
+            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.DeveloperId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", bug.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", bug.SubProjectId);
+            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "TestCaseName", bug.TestCaseId);
+            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TestManagerId);
+            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TesterId);
             return View(bug);
         }
 
@@ -107,7 +111,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
         {
             if (id != bug.Id)
             {
@@ -134,11 +138,12 @@ namespace Bug_Tracking_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", bug.ProjectId);
-            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "Id", bug.TestCaseId);
-            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TestManagerId);
-            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", bug.TesterId);
+            ViewData["DeveloperId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.DeveloperId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", bug.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", bug.SubProjectId);
+            ViewData["TestCaseId"] = new SelectList(_context.Set<TestCase>(), "Id", "TestCaseName", bug.TestCaseId);
+            ViewData["TestManagerId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TestManagerId);
+            ViewData["TesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", bug.TesterId);
             return View(bug);
         }
 
@@ -153,6 +158,7 @@ namespace Bug_Tracking_System.Controllers
             var bug = await _context.Bug
                 .Include(b => b.Developer)
                 .Include(b => b.Project)
+                .Include(b => b.SubProject)
                 .Include(b => b.TestCase)
                 .Include(b => b.TestManager)
                 .Include(b => b.Tester)

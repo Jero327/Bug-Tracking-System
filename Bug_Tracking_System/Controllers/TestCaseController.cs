@@ -22,7 +22,7 @@ namespace Bug_Tracking_System.Controllers
         // GET: TestCase
         public async Task<IActionResult> Index()
         {
-            var testCaseContext = _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project);
+            var testCaseContext = _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project).Include(t => t.SubProject);
             return View(await testCaseContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace Bug_Tracking_System.Controllers
             var testCase = await _context.TestCase
                 .Include(t => t.CaseTester)
                 .Include(t => t.Project)
+                .Include(t => t.SubProject)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (testCase == null)
             {
@@ -49,8 +50,9 @@ namespace Bug_Tracking_System.Controllers
         // GET: TestCase/Create
         public IActionResult Create()
         {
-            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "Id");
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id");
+            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName");
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName");
             return View();
         }
 
@@ -59,7 +61,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectId,CaseTesterId,TestCaseName,Comment,Status,Priority,Image,CreateTime,ModifyTime,CloseTime")] TestCase testCase)
+        public async Task<IActionResult> Create([Bind("Id,ProjectId,SubProjectId,CaseTesterId,TestCaseName,Comment,Status,Priority,Image,CreateTime,ModifyTime,CloseTime")] TestCase testCase)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +69,9 @@ namespace Bug_Tracking_System.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", testCase.CaseTesterId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", testCase.ProjectId);
+            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", testCase.CaseTesterId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", testCase.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", testCase.SubProjectId);
             return View(testCase);
         }
 
@@ -85,8 +88,9 @@ namespace Bug_Tracking_System.Controllers
             {
                 return NotFound();
             }
-            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", testCase.CaseTesterId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", testCase.ProjectId);
+            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", testCase.CaseTesterId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", testCase.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", testCase.SubProjectId);
             return View(testCase);
         }
 
@@ -95,7 +99,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,CaseTesterId,TestCaseName,Comment,Status,Priority,Image,CreateTime,ModifyTime,CloseTime")] TestCase testCase)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,SubProjectId,CaseTesterId,TestCaseName,Comment,Status,Priority,Image,CreateTime,ModifyTime,CloseTime")] TestCase testCase)
         {
             if (id != testCase.Id)
             {
@@ -122,8 +126,9 @@ namespace Bug_Tracking_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "Id", testCase.CaseTesterId);
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "Id", testCase.ProjectId);
+            ViewData["CaseTesterId"] = new SelectList(_context.Set<User>(), "Id", "UserName", testCase.CaseTesterId);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", testCase.ProjectId);
+            ViewData["SubProjectId"] = new SelectList(_context.Set<SubProject>(), "Id", "SubProjectName", testCase.SubProjectId);
             return View(testCase);
         }
 
@@ -138,6 +143,7 @@ namespace Bug_Tracking_System.Controllers
             var testCase = await _context.TestCase
                 .Include(t => t.CaseTester)
                 .Include(t => t.Project)
+                .Include(t => t.SubProject)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (testCase == null)
             {

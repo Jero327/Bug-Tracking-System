@@ -10,23 +10,23 @@ using Bug_Tracking_System.Models;
 
 namespace Bug_Tracking_System.Controllers
 {
-    public class EnrollmentController : Controller
+    public class SubProjectController : Controller
     {
-        private readonly EnrollmentContext _context;
+        private readonly SubProjectContext _context;
 
-        public EnrollmentController(EnrollmentContext context)
+        public SubProjectController(SubProjectContext context)
         {
             _context = context;
         }
 
-        // GET: Enrollment
+        // GET: SubProject
         public async Task<IActionResult> Index()
         {
-            var enrollmentContext = _context.Enrollment.Include(e => e.Project).Include(e => e.User);
-            return View(await enrollmentContext.ToListAsync());
+            var subProjectContext = _context.SubProject.Include(s => s.Project);
+            return View(await subProjectContext.ToListAsync());
         }
 
-        // GET: Enrollment/Details/5
+        // GET: SubProject/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,45 +34,42 @@ namespace Bug_Tracking_System.Controllers
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollment
-                .Include(e => e.Project)
-                .Include(e => e.User)
+            var subProject = await _context.SubProject
+                .Include(s => s.Project)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (enrollment == null)
+            if (subProject == null)
             {
                 return NotFound();
             }
 
-            return View(enrollment);
+            return View(subProject);
         }
 
-        // GET: Enrollment/Create
+        // GET: SubProject/Create
         public IActionResult Create()
         {
             ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName");
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName");
             return View();
         }
 
-        // POST: Enrollment/Create
+        // POST: SubProject/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectId,UserId")] Enrollment enrollment)
+        public async Task<IActionResult> Create([Bind("Id,SubProjectName,Description,CteateTime,FinishTime,ProjectId")] SubProject subProject)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(enrollment);
+                _context.Add(subProject);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", enrollment.ProjectId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", enrollment.UserId);
-            return View(enrollment);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", subProject.ProjectId);
+            return View(subProject);
         }
 
-        // GET: Enrollment/Edit/5
+        // GET: SubProject/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,24 +77,23 @@ namespace Bug_Tracking_System.Controllers
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollment.FindAsync(id);
-            if (enrollment == null)
+            var subProject = await _context.SubProject.FindAsync(id);
+            if (subProject == null)
             {
                 return NotFound();
             }
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", enrollment.ProjectId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", enrollment.UserId);
-            return View(enrollment);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", subProject.ProjectId);
+            return View(subProject);
         }
 
-        // POST: Enrollment/Edit/5
+        // POST: SubProject/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,UserId")] Enrollment enrollment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SubProjectName,Description,CteateTime,FinishTime,ProjectId")] SubProject subProject)
         {
-            if (id != enrollment.Id)
+            if (id != subProject.Id)
             {
                 return NotFound();
             }
@@ -106,12 +102,12 @@ namespace Bug_Tracking_System.Controllers
             {
                 try
                 {
-                    _context.Update(enrollment);
+                    _context.Update(subProject);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EnrollmentExists(enrollment.Id))
+                    if (!SubProjectExists(subProject.Id))
                     {
                         return NotFound();
                     }
@@ -122,12 +118,11 @@ namespace Bug_Tracking_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", enrollment.ProjectId);
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "UserName", enrollment.UserId);
-            return View(enrollment);
+            ViewData["ProjectId"] = new SelectList(_context.Set<Project>(), "Id", "ProjectName", subProject.ProjectId);
+            return View(subProject);
         }
 
-        // GET: Enrollment/Delete/5
+        // GET: SubProject/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,32 +130,31 @@ namespace Bug_Tracking_System.Controllers
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollment
-                .Include(e => e.Project)
-                .Include(e => e.User)
+            var subProject = await _context.SubProject
+                .Include(s => s.Project)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (enrollment == null)
+            if (subProject == null)
             {
                 return NotFound();
             }
 
-            return View(enrollment);
+            return View(subProject);
         }
 
-        // POST: Enrollment/Delete/5
+        // POST: SubProject/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var enrollment = await _context.Enrollment.FindAsync(id);
-            _context.Enrollment.Remove(enrollment);
+            var subProject = await _context.SubProject.FindAsync(id);
+            _context.SubProject.Remove(subProject);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EnrollmentExists(int id)
+        private bool SubProjectExists(int id)
         {
-            return _context.Enrollment.Any(e => e.Id == id);
+            return _context.SubProject.Any(e => e.Id == id);
         }
     }
 }

@@ -23,11 +23,15 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProjectId" class="control-label"></label>
+                <label asp-for="Project" class="control-label"></label>
                 <select asp-for="ProjectId" class ="form-control" asp-items="ViewBag.ProjectId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="TestCaseId" class="control-label"></label>
+                <label asp-for="SubProject" class="control-label"></label>
+                <select asp-for="SubProjectId" class ="form-control" asp-items="ViewBag.SubProjectId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCase" class="control-label"></label>
                 <select asp-for="TestCaseId" class ="form-control" asp-items="ViewBag.TestCaseId"></select>
             </div>
             <div class="form-group">
@@ -63,15 +67,15 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TesterId" class="control-label"></label>
+                <label asp-for="Tester" class="control-label"></label>
                 <select asp-for="TesterId" class ="form-control" asp-items="ViewBag.TesterId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="TestManagerId" class="control-label"></label>
+                <label asp-for="TestManager" class="control-label"></label>
                 <select asp-for="TestManagerId" class ="form-control" asp-items="ViewBag.TestManagerId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DeveloperId" class="control-label"></label>
+                <label asp-for="Developer" class="control-label"></label>
                 <select asp-for="DeveloperId" class ="form-control" asp-items="ViewBag.DeveloperId"></select>
             </div>
             <div class="form-group">

@@ -27,6 +27,9 @@ namespace Bug_Tracking_System.Models
         [Display(Name = "Project")]
         public int ProjectId { get; set; }
 
+        [Display(Name = "SubProject")]
+        public int SubProjectId { get; set; }
+
         [Display(Name = "Test Case")]
         public int TestCaseId { get; set; }
 
@@ -67,6 +70,7 @@ namespace Bug_Tracking_System.Models
 
 
         public Project Project { get; set; }
+        public SubProject SubProject { get; set; }
         public TestCase TestCase { get; set; }
         public User Tester { get; set; }
         public User TestManager { get; set; }

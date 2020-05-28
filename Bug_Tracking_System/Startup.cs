@@ -85,6 +85,20 @@ namespace Bug_Tracking_System
                 }
             });
 
+            services.AddDbContext<SubProjectContext>(options =>
+            {
+                var connectionString = Configuration.GetConnectionString("SubProjectContext");
+
+                if (Environment.IsDevelopment())
+                {
+                    options.UseSqlite(connectionString);
+                }
+                else
+                {
+                    options.UseSqlServer(connectionString);
+                }
+            });
+
             services.AddDbContext<TestCaseContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("TestCaseContext");
