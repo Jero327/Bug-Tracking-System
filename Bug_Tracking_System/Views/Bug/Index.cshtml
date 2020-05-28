@@ -13,6 +13,12 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.BugName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.BugStatus)
             </th>
             <th>
@@ -20,12 +26,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Priority)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Image)
@@ -61,6 +61,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.BugName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.BugStatus)
             </td>
             <td>
@@ -68,12 +74,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BugName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Image)
