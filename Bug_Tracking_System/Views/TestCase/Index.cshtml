@@ -12,6 +12,14 @@
 
 <form asp-controller="TestCase" asp-action="Index" method="GET">
     <p>
+        Status:
+        <select name="Status">
+            <option value="">All</option>
+            <option value="ToDo">ToDo</option>
+            <option value="InProgress">InProgress</option>
+            <option value="Done">Done</option>
+        </select>
+        
         TestCase Name: <input type="text" name="searchString">
         <input type="submit" value="Filter" />
     </p>

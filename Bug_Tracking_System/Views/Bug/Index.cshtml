@@ -12,6 +12,17 @@
 
 <form asp-controller="Bug" asp-action="Index" method="GET">
     <p>
+        Status:
+        <select name="BugStatus">
+            <option value="">All</option>
+            <option value="New">New</option>
+            <option value="Declined">Declined</option>
+            <option value="Open">Open</option>
+            <option value="Reopen">Reopen</option>
+            <option value="Fixed">Fixed</option>
+            <option value="Closed">Closed</option>
+        </select>
+        
         Bug Name: <input type="text" name="searchString">
         <input type="submit" value="Filter" />
     </p>

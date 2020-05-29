@@ -20,13 +20,18 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: TestCase
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string Status)
         {
             var testCases = from m in _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project).Include(t => t.SubProject) select m;
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 testCases = testCases.Where(s => s.TestCaseName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(Status))
+            {
+                testCases = testCases.Where(s => s.Status == ((Status)Enum.Parse(typeof(Status), Status, false)));
             }
             
             return View(await testCases.ToListAsync());
