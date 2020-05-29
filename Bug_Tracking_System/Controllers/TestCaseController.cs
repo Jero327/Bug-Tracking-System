@@ -20,10 +20,16 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: TestCase
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var testCaseContext = _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project).Include(t => t.SubProject);
-            return View(await testCaseContext.ToListAsync());
+            var testCases = from m in _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project).Include(t => t.SubProject) select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                testCases = testCases.Where(s => s.TestCaseName.Contains(searchString));
+            }
+            
+            return View(await testCases.ToListAsync());
         }
 
         // GET: TestCase/Details/5
