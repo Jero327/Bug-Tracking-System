@@ -82,7 +82,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
+        public async Task<IActionResult> Create([Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Rating,CreateTime,ModifyTime,CloseTime")] Bug bug)
         {
             if (ModelState.IsValid)
             {
@@ -126,7 +126,7 @@ namespace Bug_Tracking_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Image,CreateTime,ModifyTime,CloseTime")] Bug bug)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,SubProjectId,TestCaseId,BugStatus,Severity,Priority,TesterId,TestManagerId,DeveloperId,BugName,Comment,Rating,CreateTime,ModifyTime,CloseTime")] Bug bug)
         {
             if (id != bug.Id)
             {

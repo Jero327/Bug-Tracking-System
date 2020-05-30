@@ -9,16 +9,6 @@ namespace Bug_Tracking_System.Models
     {
         New, Declined, Open, Reopen, Fixed, Closed
     }
-
-    public enum Severity
-    {
-        General, Medium, Serious
-    }
-
-    public enum Priority
-    {
-        First=1, Second=2, Third=3, Fourth=4, Fifth=5
-    }
     
     public class Bug
     {
@@ -37,10 +27,10 @@ namespace Bug_Tracking_System.Models
         public BugStatus BugStatus { get; set; }
         
         [Display(Name = "Severity")]
-        public Severity Severity { get; set; }
+        public int Severity { get; set; }
 
         [Display(Name = "Priority")]
-        public Priority Priority { get; set; }
+        public int Priority { get; set; }
 
         [Display(Name = "Tester")]
         public int TesterId { get; set; }
@@ -54,7 +44,13 @@ namespace Bug_Tracking_System.Models
         [Display(Name = "Bug")]
         public string BugName { get; set; }
         public string Comment { get; set; }
-        public string Image { get; set; }
+        public int Rating
+        {
+            get
+            {
+                return Severity*Priority;
+            }
+        }
 
         [Display(Name = "Create Time")]
         [DataType(DataType.Date)]

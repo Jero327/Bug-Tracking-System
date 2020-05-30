@@ -22,7 +22,7 @@ namespace Bug_Tracking_System.Models
         public string TestCaseName { get; set; }
         public string Comment { get; set; }
         public Status Status { get; set; }
-        public Priority Priority { get; set; }
+        public int Priority { get; set; }
         public string Image { get; set; }
         
         [Display(Name = "Create Time")]
