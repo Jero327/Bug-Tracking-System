@@ -20,7 +20,7 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: Bug
-        public async Task<IActionResult> Index(string searchString, string BugStatus, int count, string Rating)
+        public async Task<IActionResult> Index(string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
         {
             var bugs = from m in _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.SubProject).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester) select m;
             
@@ -46,6 +46,14 @@ namespace Bug_Tracking_System.Controllers
                 { bugs = bugs.Where(s => (s.Severity*s.Priority)>15 && (s.Severity*s.Priority)<21); }
                 if (Rating=="21")
                 { bugs = bugs.Where(s => (s.Severity*s.Priority)>20 && (s.Severity*s.Priority)<26); }
+            }
+
+            if (!String.IsNullOrEmpty(start_date))
+            {
+                if (!String.IsNullOrEmpty(end_date))
+                {
+                    bugs = bugs.Where(s => s.CreateTime>=Convert.ToDateTime(start_date) && s.CreateTime<=Convert.ToDateTime(end_date));
+                }
             }
 
             count = bugs.Count();
