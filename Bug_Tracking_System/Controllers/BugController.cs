@@ -20,13 +20,49 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: Bug
-        public async Task<IActionResult> Index(string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
+        public async Task<IActionResult> Index(string bugProject, string bugSubProject, string bugTester, string bugDeveloper, string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
         {
+            IQueryable<string> projectQuery = from m in _context.Bug
+                                    orderby m.Project.ProjectName
+                                    select m.Project.ProjectName;
+
+            IQueryable<string> subprojectQuery = from m in _context.Bug
+                                    orderby m.SubProject.SubProjectName
+                                    select m.SubProject.SubProjectName;
+
+            IQueryable<string> testerQuery = from m in _context.Bug
+                                    orderby m.Tester.UserName
+                                    select m.Tester.UserName;
+
+            IQueryable<string> developerQuery = from m in _context.Bug
+                                    orderby m.Developer.UserName
+                                    select m.Developer.UserName;
+            
             var bugs = from m in _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.SubProject).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester) select m;
             
             if (!String.IsNullOrEmpty(searchString))
             {
                 bugs = bugs.Where(s => s.BugName.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(bugProject))
+            {
+                bugs = bugs.Where(s => s.Project.ProjectName == bugProject);
+            }
+
+            if (!String.IsNullOrEmpty(bugSubProject))
+            {
+                bugs = bugs.Where(s => s.SubProject.SubProjectName == bugSubProject);
+            }
+
+            if (!String.IsNullOrEmpty(bugTester))
+            {
+                bugs = bugs.Where(s => s.Tester.UserName == bugTester);
+            }
+
+            if (!String.IsNullOrEmpty(bugDeveloper))
+            {
+                bugs = bugs.Where(s => s.Developer.UserName == bugDeveloper);
             }
 
             if (!String.IsNullOrEmpty(BugStatus))
@@ -56,11 +92,21 @@ namespace Bug_Tracking_System.Controllers
                 }
             }
 
+            var bugVM = new BugViewModel
+            {
+                Project = new SelectList(await projectQuery.Distinct().ToListAsync()),
+                SubProject = new SelectList(await subprojectQuery.Distinct().ToListAsync()),
+                Tester = new SelectList(await testerQuery.Distinct().ToListAsync()),
+                Developer = new SelectList(await developerQuery.Distinct().ToListAsync()),
+
+                Bugs = await bugs.ToListAsync()
+            };
+
             count = bugs.Count();
 
             ViewData["count"] = count;
             
-            return View(await bugs.ToListAsync());
+            return View(bugVM);
         }
 
         // GET: Bug/Details/5
