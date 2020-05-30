@@ -20,7 +20,7 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: Bug
-        public async Task<IActionResult> Index(string searchString, string BugStatus, int count)
+        public async Task<IActionResult> Index(string searchString, string BugStatus, int count, string Rating)
         {
             var bugs = from m in _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.SubProject).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester) select m;
             
@@ -32,6 +32,20 @@ namespace Bug_Tracking_System.Controllers
             if (!String.IsNullOrEmpty(BugStatus))
             {
                 bugs = bugs.Where(s => s.BugStatus == ((BugStatus)Enum.Parse(typeof(BugStatus), BugStatus, false)));
+            }
+
+            if (!String.IsNullOrEmpty(Rating))
+            {
+                if (Rating=="1")
+                { bugs = bugs.Where(s => (s.Severity*s.Priority)>0 && (s.Severity*s.Priority)<6); }
+                if (Rating=="6")
+                { bugs = bugs.Where(s => (s.Severity*s.Priority)>5 && (s.Severity*s.Priority)<11); }
+                if (Rating=="11")
+                { bugs = bugs.Where(s => (s.Severity*s.Priority)>10 && (s.Severity*s.Priority)<16); }
+                if (Rating=="16")
+                { bugs = bugs.Where(s => (s.Severity*s.Priority)>15 && (s.Severity*s.Priority)<21); }
+                if (Rating=="21")
+                { bugs = bugs.Where(s => (s.Severity*s.Priority)>20 && (s.Severity*s.Priority)<26); }
             }
 
             count = bugs.Count();
