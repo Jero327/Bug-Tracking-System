@@ -19,5 +19,7 @@ namespace Bug_Tracking_System.Models
         public string Rating { get; set; }
         public string start_date { get; set; }
         public string end_date { get; set; }
+        public string close_start_date { get; set; }
+        public string close_end_date { get; set; }
     }
 }

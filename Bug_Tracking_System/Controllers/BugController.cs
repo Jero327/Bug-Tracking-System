@@ -32,7 +32,7 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: Bug Report
-        public async Task<IActionResult> BugReport(string bugProject, string bugSubProject, string bugTester, string bugDeveloper, string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
+        public async Task<IActionResult> BugReport(string bugProject, string bugSubProject, string bugTester, string bugDeveloper, string searchString, string BugStatus, int count, string Rating, string start_date, string end_date, string close_start_date, string close_end_date)
         {
             IQueryable<string> projectQuery = from m in _context.Bug
                                     orderby m.Project.ProjectName
@@ -101,6 +101,14 @@ namespace Bug_Tracking_System.Controllers
                 if (!String.IsNullOrEmpty(end_date))
                 {
                     bugs = bugs.Where(s => s.CreateTime>=Convert.ToDateTime(start_date) && s.CreateTime<=Convert.ToDateTime(end_date));
+                }
+            }
+
+            if (!String.IsNullOrEmpty(close_start_date))
+            {
+                if (!String.IsNullOrEmpty(close_end_date))
+                {
+                    bugs = bugs.Where(s => s.CloseTime>=Convert.ToDateTime(close_start_date) && s.CloseTime<=Convert.ToDateTime(close_end_date));
                 }
             }
 

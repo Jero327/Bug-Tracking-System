@@ -31,9 +31,11 @@
             <option value="21">21-25</option>
         </select>
 
-        Create Time Range:
-        <input type="text" id="start_date" value="1000/1/1" asp-for="start_date"> - <input type="text" id="end_date" value="3000/1/1" asp-for="end_date">
-        
+        Tester:
+        <select asp-for="BugTester" asp-items="Model.Tester">
+            <option value="">All</option>
+        </select>
+
         <br/><br/>
 
         Project:
@@ -46,17 +48,21 @@
             <option value="">All</option>
         </select>
 
-        Tester:
-        <select asp-for="BugTester" asp-items="Model.Tester">
-            <option value="">All</option>
-        </select>
-
         Developer:
         <select asp-for="BugDeveloper" asp-items="Model.Developer">
             <option value="">All</option>
         </select>
 
         Bug Name: <input type="text" asp-for="searchString">
+
+        <br/><br/>
+
+        Create Time Range:
+        <input type="text" id="start_date" value="1000/1/1" asp-for="start_date"> - <input type="text" id="end_date" value="3000/1/1" asp-for="end_date">
+
+        Close Time Range:
+        <input type="text" id="close_start_date" value="1000/1/1" asp-for="close_start_date"> - <input type="text" id="close_end_date" value="3000/1/1" asp-for="close_end_date">
+
         <input type="submit" value="Filter" />
     </p>
 </form>
