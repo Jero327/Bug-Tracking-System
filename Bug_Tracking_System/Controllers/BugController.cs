@@ -20,7 +20,19 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: Bug
-        public async Task<IActionResult> Index(string bugProject, string bugSubProject, string bugTester, string bugDeveloper, string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
+        public async Task<IActionResult> Index(int count)
+        {
+            var bugs = from m in _context.Bug.Include(b => b.Developer).Include(b => b.Project).Include(b => b.SubProject).Include(b => b.TestCase).Include(b => b.TestManager).Include(b => b.Tester) select m;
+
+            count = bugs.Count();
+
+            ViewData["count"] = count;
+            
+            return View(await bugs.ToListAsync());
+        }
+
+        // GET: Bug Report
+        public async Task<IActionResult> BugReport(string bugProject, string bugSubProject, string bugTester, string bugDeveloper, string searchString, string BugStatus, int count, string Rating, string start_date, string end_date)
         {
             IQueryable<string> projectQuery = from m in _context.Bug
                                     orderby m.Project.ProjectName

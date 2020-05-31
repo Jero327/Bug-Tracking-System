@@ -1,4 +1,4 @@
-@model Bug_Tracking_System.Models.BugViewModel
+@model IEnumerable<Bug_Tracking_System.Models.Bug>
 
 @{
     ViewData["Title"] = "Bug";
@@ -10,112 +10,59 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-controller="Bug" asp-action="Index" method="GET">
-    <p>
-        Status:
-        <select asp-for="BugStatus">
-            <option value="">All</option>
-            <option value="New">New</option>
-            <option value="Declined">Declined</option>
-            <option value="Open">Open</option>
-            <option value="Reopen">Reopen</option>
-            <option value="Fixed">Fixed</option>
-            <option value="Closed">Closed</option>
-        </select>
-
-        Rating:
-        <select asp-for="Rating">
-            <option value="">All</option>
-            <option value="1">1-5</option>
-            <option value="6">6-10</option>
-            <option value="11">11-15</option>
-            <option value="16">16-20</option>
-            <option value="21">21-25</option>
-        </select>
-
-        Create Time Range:
-        <input type="text" id="start_date" value="1000/1/1" asp-for="start_date"> - <input type="text" id="end_date" value="3000/1/1" asp-for="end_date">
-        
-        <br/><br/>
-
-        Project:
-        <select asp-for="BugProject" asp-items="Model.Project">
-            <option value="">All</option>
-        </select>
-
-        SubProject:
-        <select asp-for="BugSubProject" asp-items="Model.SubProject">
-            <option value="">All</option>
-        </select>
-
-        Tester:
-        <select asp-for="BugTester" asp-items="Model.Tester">
-            <option value="">All</option>
-        </select>
-
-        Developer:
-        <select asp-for="BugDeveloper" asp-items="Model.Developer">
-            <option value="">All</option>
-        </select>
-
-        Bug Name: <input type="text" asp-for="searchString">
-        <input type="submit" value="Filter" />
-    </p>
-</form>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].BugName)
+                @Html.DisplayNameFor(model => model.BugName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Comment)
+                @Html.DisplayNameFor(model => model.Comment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].BugStatus)
+                @Html.DisplayNameFor(model => model.BugStatus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Severity)
+                @Html.DisplayNameFor(model => model.Severity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Priority)
+                @Html.DisplayNameFor(model => model.Priority)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Rating)
+                @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].CreateTime)
+                @Html.DisplayNameFor(model => model.CreateTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].ModifyTime)
+                @Html.DisplayNameFor(model => model.ModifyTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].CloseTime)
+                @Html.DisplayNameFor(model => model.CloseTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Project)
+                @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].SubProject)
+                @Html.DisplayNameFor(model => model.SubProject)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].TestCase)
+                @Html.DisplayNameFor(model => model.TestCase)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Tester)
+                @Html.DisplayNameFor(model => model.Tester)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].TestManager)
+                @Html.DisplayNameFor(model => model.TestManager)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bugs[0].Developer)
+                @Html.DisplayNameFor(model => model.Developer)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Bugs.OrderBy(i => i.Rating)) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.BugName)
