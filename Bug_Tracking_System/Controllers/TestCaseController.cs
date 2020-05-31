@@ -20,7 +20,7 @@ namespace Bug_Tracking_System.Controllers
         }
 
         // GET: TestCase
-        public async Task<IActionResult> Index(string searchString, string Status)
+        public async Task<IActionResult> Index(string searchString, string Status, int count)
         {
             var testCases = from m in _context.TestCase.Include(t => t.CaseTester).Include(t => t.Project).Include(t => t.SubProject) select m;
 
@@ -33,6 +33,10 @@ namespace Bug_Tracking_System.Controllers
             {
                 testCases = testCases.Where(s => s.Status == ((Status)Enum.Parse(typeof(Status), Status, false)));
             }
+
+            count = testCases.Count();
+
+            ViewData["count"] = count;
             
             return View(await testCases.ToListAsync());
         }
