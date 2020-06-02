@@ -64,6 +64,9 @@
         <input type="text" id="close_start_date" value="1000/1/1" asp-for="close_start_date"> - <input type="text" id="close_end_date" value="3000/1/1" asp-for="close_end_date">
 
         <input type="submit" value="Filter" />
+        <strong>
+            Total: @ViewData["count"]
+        </strong>
     </p>
 </form>
 
