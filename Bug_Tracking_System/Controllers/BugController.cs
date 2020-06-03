@@ -129,6 +129,12 @@ namespace Bug_Tracking_System.Controllers
             return View(bugVM);
         }
 
+        // GET: Bug chart
+        public IActionResult chart()
+        {
+            return View();
+        }
+
         // GET: Bug/Details/5
         public async Task<IActionResult> Details(int? id)
         {

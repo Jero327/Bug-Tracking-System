@@ -8,8 +8,11 @@
 
 <br/>
 
+<a asp-action="chart">Bug Chart</a>
+
 <form asp-controller="Bug" asp-action="BugReport" method="GET">
     <p>
+        <br/>
         Status:
         <select asp-for="BugStatus">
             <option value="">All</option>
