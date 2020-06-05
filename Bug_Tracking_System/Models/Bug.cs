@@ -15,13 +15,13 @@ namespace Bug_Tracking_System.Models
         public int Id { get; set; }
 
         [Display(Name = "Project")]
-        public int ProjectId { get; set; }
+        public int? ProjectId { get; set; }
 
         [Display(Name = "SubProject")]
-        public int SubProjectId { get; set; }
+        public int? SubProjectId { get; set; }
 
         [Display(Name = "Test Case")]
-        public int TestCaseId { get; set; }
+        public int? TestCaseId { get; set; }
 
         [Display(Name = "Status")]
         public BugStatus BugStatus { get; set; }
@@ -33,13 +33,13 @@ namespace Bug_Tracking_System.Models
         public int Priority { get; set; }
 
         [Display(Name = "Tester")]
-        public int TesterId { get; set; }
+        public int? TesterId { get; set; }
 
         [Display(Name = "Test Manager")]
-        public int TestManagerId { get; set; }
+        public int? TestManagerId { get; set; }
 
         [Display(Name = "Developer")]
-        public int DeveloperId { get; set; }
+        public int? DeveloperId { get; set; }
 
         [Display(Name = "Bug")]
         public string BugName { get; set; }
@@ -65,11 +65,11 @@ namespace Bug_Tracking_System.Models
         public DateTime CloseTime { get; set; }
 
 
-        public Project Project { get; set; }
-        public SubProject SubProject { get; set; }
-        public TestCase TestCase { get; set; }
-        public User Tester { get; set; }
-        public User TestManager { get; set; }
-        public User Developer { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual SubProject SubProject { get; set; }
+        public virtual TestCase TestCase { get; set; }
+        public virtual User Tester { get; set; }
+        public virtual User TestManager { get; set; }
+        public virtual User Developer { get; set; }
     }
 }

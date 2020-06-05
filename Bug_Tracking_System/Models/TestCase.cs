@@ -14,9 +14,9 @@ namespace Bug_Tracking_System.Models
     {
         public int Id { get; set; }
 
-        public int ProjectId { get; set; }
-        public int SubProjectId { get; set; }
-        public int CaseTesterId { get; set; }
+        public int? ProjectId { get; set; }
+        public int? SubProjectId { get; set; }
+        public int? CaseTesterId { get; set; }
         
         [Required]
         public string TestCaseName { get; set; }
@@ -39,10 +39,10 @@ namespace Bug_Tracking_System.Models
 
         public ICollection<Bug> Bugs { get; set; }
 
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
 
-        public SubProject SubProject { get; set; }
+        public virtual SubProject SubProject { get; set; }
 
-        public User CaseTester { get; set; }
+        public virtual User CaseTester { get; set; }
     }
 }

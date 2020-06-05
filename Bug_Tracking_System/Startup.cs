@@ -29,89 +29,102 @@ namespace Bug_Tracking_System
         {
             services.AddControllersWithViews();
             
+            // services.AddDbContext<BugContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("BugContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
+            // services.AddDbContext<UserContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("UserContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
+            // services.AddDbContext<EnrollmentContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("EnrollmentContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
+            // services.AddDbContext<ProjectContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("ProjectContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
+            // services.AddDbContext<SubProjectContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("SubProjectContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
+            // services.AddDbContext<TestCaseContext>(options =>
+            // {
+            //     var connectionString = Configuration.GetConnectionString("TestCaseContext");
+
+            //     if (Environment.IsDevelopment())
+            //     {
+            //         options.UseSqlite(connectionString);
+            //     }
+            //     else
+            //     {
+            //         options.UseSqlServer(connectionString);
+            //     }
+            // });
+
             services.AddDbContext<BugContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("BugContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddDbContext<UserContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("UserContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddDbContext<EnrollmentContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("EnrollmentContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddDbContext<ProjectContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("ProjectContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddDbContext<SubProjectContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("SubProjectContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddDbContext<TestCaseContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("TestCaseContext");
-
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
