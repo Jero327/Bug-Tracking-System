@@ -1,7 +1,5 @@
 # Bug-Tracking-System
 
-"# 7413-Assessment" 
-
 dotnet tool install --global dotnet-ef
 
 dotnet ef database drop --force --context BugContext
